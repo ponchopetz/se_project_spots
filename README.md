@@ -1,21 +1,32 @@
-# Project 3: Spots
+# Card Gallery Project
 
-### Overview  
+## 📖 Description
 
-* Intro  
-* Figma  
-* Images  
-  
-**Intro**
-  
-This project is made so all the elements are displayed correctly on popular screen sizes. We recommend investing more time in completing this project, since it's more difficult than previous ones.  
-  
-**Figma**  
-  
-* [Link to the project on Figma](https://www.figma.com/file/BBNm2bC3lj8QQMHlnqRsga/Sprint-3-Project-%E2%80%94-Spots?type=design&node-id=2%3A60&mode=design&t=afgNFybdorZO6cQo-1)
-  
-**Images**  
-  
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
-  
-Good luck and have fun!
+The **Card Gallery Project** is a responsive web page showcasing a collection of styled cards. Each card is designed to fit within a clean, grid-based layout that adjusts seamlessly to different screen sizes. The project demonstrates modern front-end development practices with a focus on reusable components, semantic structure, and a visually appealing user experience.
+
+## ✨ Features & Functionality
+
+- Responsive card grid layout using **CSS Grid**
+- Clean and modern styling with **CSS custom classes**
+- Semantic HTML5 structure for accessibility and SEO
+- Modular CSS with separate files for different page sections (cards, footer, etc.)
+- Cross-browser compatible design
+
+## 🛠️ Technologies & Techniques Used
+
+- **HTML5** for semantic structure
+- **CSS3** for styling, including Grid, Flexbox, and custom classes
+- **BEM (Block, Element, Modifier)** methodology for maintainable CSS
+- **Responsive design principles** to ensure usability across devices
+
+## 📸 Screenshots / GIFs
+
+(Add your screenshots or GIFs here, for example:)
+
+- ![Homepage Screenshot, Desktop view](../assets/desktop_view.png)
+- ![Mobile view](../assets/mobile_view.png)
+
+## 🚀 Deployment
+
+You can view the live project here:  
+👉 [GitHub Pages Deployment Link](https://ponchopetz.github.io/se_project_spots/)
