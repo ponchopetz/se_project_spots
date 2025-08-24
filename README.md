@@ -23,8 +23,10 @@ The **Card Gallery Project** is a responsive web page showcasing a collection of
 
 (Add your screenshots or GIFs here, for example:)
 
-- ![Homepage Screenshot, Desktop view](../assets/desktop_view.png)
-- ![Mobile view](../assets/mobile_view.png)
+- ![Homepage Screenshot, Desktop view](../assets/desktop_view.png)<img width="1547" height="872" alt="desktop_view" src="https://github.com/user-attachments/assets/ea98514e-1304-452f-b1e0-d3c9ce7924ba" />
+
+- ![Mobile view](../assets/mobile_view.png)<img width="591" height="872" alt="mobile_view" src="https://github.com/user-attachments/assets/19955e9c-c7fb-4111-9b3d-01a6df08e7a5" />
+
 
 ## 🚀 Deployment
 
