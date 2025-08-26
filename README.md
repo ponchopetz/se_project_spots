@@ -19,7 +19,7 @@ The **Card Gallery Project** is a responsive web page showcasing a collection of
 - **BEM (Block, Element, Modifier)** methodology for maintainable CSS
 - **Responsive design principles** to ensure usability across devices
 
-## 📸 Screenshots / GIFs
+##  📸 Screenshots / GIFs
 
 ![Homepage Screenshot, Desktop view](../assets/desktop_view.png)<img width="1547" height="872" alt="desktop_view" src="https://github.com/user-attachments/assets/ea98514e-1304-452f-b1e0-d3c9ce7924ba" />
 
@@ -30,3 +30,7 @@ The **Card Gallery Project** is a responsive web page showcasing a collection of
 
 You can view the live project here:  
 👉 [GitHub Pages Deployment Link](https://ponchopetz.github.io/se_project_spots/)
+
+## 📸 Video demonstration
+
+[Link to Google Drive](https://drive.google.com/file/d/1zjIXls0dZSRYrKrYzsD2qijIt3KzR_XP/view?usp=sharing)
