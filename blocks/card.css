@@ -20,6 +20,7 @@
 .card__title {
   margin: 0;
   font-size: 1.25em;
+  font-weight: 500;
   line-height: 1.2;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -30,16 +31,24 @@
   width: 23px;
   height: 20px;
   background: url(../images/like_icon.svg) no-repeat center;
-  opacity: 40%;
+  opacity: 0.4;
   border: none;
 }
 
 .card__like-btn:hover {
-  opacity: 100%;
+  opacity: 1;
   cursor: pointer;
 }
 
 @media screen and (max-width: 630px) {
+  .card {
+    max-width: 288px;
+  }
+
+  .card__image {
+    width: 288px;
+    height: 288px;
+  }
   .card__title {
     font-size: 1em;
   }
