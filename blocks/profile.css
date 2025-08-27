@@ -19,6 +19,7 @@
 
 .profile__name {
   margin: 0;
+  font-weight: 500;
   display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
