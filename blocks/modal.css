@@ -1,7 +1,7 @@
 .modal {
   visibility: hidden;
   opacity: 0;
-  transition: visibility 0.1s linear 0.3s, opacity 0.3s ease-in-out;
+  transition: visibility 0.1s linear 0.4s, opacity 0.4s linear;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
   inset: 0;
