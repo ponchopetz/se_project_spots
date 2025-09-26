@@ -48,6 +48,26 @@ const newProfileCaptionInput = newProfileModal.querySelector(
 const profileNameEl = document.querySelector(".profile__name");
 const profileDescriptionEl = document.querySelector(".profile__description");
 
+const cardTemplate = document.querySelector("#card-template").content;
+const cardsList = document.querySelector(".cards__list");
+
+function getCardElement(data) {
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  const cardTitleEl = cardElement.querySelector(".card__title");
+  const cardImageEl = cardElement.querySelector(".card__image");
+
+  cardImageEl.src = data.link;
+  cardImageEl.alt = data.name;
+  cardTitleEl.textContent = data.name;
+
+  const cardLikeBtnEl = cardElement.querySelector(".card__like-btn");
+  cardLikeBtnEl.addEventListener("click", () => {
+    cardLikeBtnEl.classList.toggle("card__like-btn_active");
+  });
+
+  return cardElement;
+}
+
 function openModal(modal) {
   modal.classList.add("modal_opened");
 }
@@ -56,19 +76,19 @@ function closeModal(modal) {
   modal.classList.remove("modal_opened");
 }
 
-editProfileBtn.addEventListener("click", function () {
+editProfileBtn.addEventListener("click", () => {
   editProfileNameInput.value = profileNameEl.textContent;
   editProfileDescriptionInput.value = profileDescriptionEl.textContent;
   openModal(editProfileModal);
 });
-editProfileCloseBtn.addEventListener("click", function () {
+editProfileCloseBtn.addEventListener("click", () => {
   closeModal(editProfileModal);
 });
 
-newProfileBtn.addEventListener("click", function () {
+newProfileBtn.addEventListener("click", () => {
   openModal(newProfileModal);
 });
-newProfileCloseBtn.addEventListener("click", function () {
+newProfileCloseBtn.addEventListener("click", () => {
   closeModal(newProfileModal);
 });
 
@@ -83,13 +103,19 @@ editProfileForm.addEventListener("submit", handleEditProfileFormSubmit);
 
 function handleNewProfileFormSubmit(evt) {
   evt.preventDefault();
-  console.log(newProfileLinkInput.value);
-  console.log(newProfileCaptionInput.value);
+  const inputValues = {
+    name: newProfileCaptionInput.value,
+    link: newProfileLinkInput.value,
+  };
+  const cardEl = getCardElement(inputValues);
+  cardsList.prepend(cardEl);
+  newProfileForm.reset();
   closeModal(newProfileModal);
 }
 
 newProfileForm.addEventListener("submit", handleNewProfileFormSubmit);
 
 initialCards.forEach(function (item) {
-  console.log(item.name);
+  const cardEl = getCardElement(item);
+  cardsList.append(cardEl);
 });
