@@ -36,6 +36,9 @@ const editProfileDescriptionInput = editProfileModal.querySelector(
   "#profile-description-input"
 );
 
+const profileNameEl = document.querySelector(".profile__name");
+const profileDescriptionEl = document.querySelector(".profile__description");
+
 const newProfileBtn = document.querySelector(".profile__new-btn");
 const newProfileModal = document.querySelector("#new-profile-modal");
 const newProfileCloseBtn = newProfileModal.querySelector(".modal__close-btn");
@@ -45,13 +48,27 @@ const newProfileCaptionInput = newProfileModal.querySelector(
   "#post-image-caption"
 );
 
-const profileNameEl = document.querySelector(".profile__name");
-const profileDescriptionEl = document.querySelector(".profile__description");
+const previewModal = document.querySelector("#preview-modal");
+const previewModalImageEl = previewModal.querySelector(".modal__image-preview");
+const previewModalCaptionEl = previewModal.querySelector(
+  ".modal__image-caption"
+);
+const previewModalCloseBtn = previewModal.querySelector(".modal__close-btn");
+
+previewModalCloseBtn.addEventListener("click", () => {
+  closeModal(previewModal);
+});
 
 const cardTemplate = document.querySelector("#card-template").content;
 const cardsList = document.querySelector(".cards__list");
 
-const cardImagePreviewModal = document.querySelector("#preview-modal");
+function openModal(modal) {
+  modal.classList.add("modal_opened");
+}
+
+function closeModal(modal) {
+  modal.classList.remove("modal_opened");
+}
 
 function getCardElement(data) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
@@ -72,15 +89,14 @@ function getCardElement(data) {
     cardElement.remove();
   });
 
+  cardImageEl.addEventListener("click", () => {
+    previewModalCaptionEl.textContent = data.name;
+    previewModalImageEl.src = data.link;
+    previewModalImageEl.alt = data.name;
+    openModal(previewModal);
+  });
+
   return cardElement;
-}
-
-function openModal(modal) {
-  modal.classList.add("modal_opened");
-}
-
-function closeModal(modal) {
-  modal.classList.remove("modal_opened");
 }
 
 editProfileBtn.addEventListener("click", () => {
