@@ -20,8 +20,8 @@ const initialCards = [
     link: "https://images.unsplash.com/photo-1750375502807-2c73a829f182?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
-    name: "A very long bridge, over the forest and through the trees",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
+    name: "Golden Gate Bridge",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
   },
 ];
 
@@ -50,6 +50,8 @@ const profileDescriptionEl = document.querySelector(".profile__description");
 
 const cardTemplate = document.querySelector("#card-template").content;
 const cardsList = document.querySelector(".cards__list");
+
+const cardImagePreviewModal = document.querySelector("#preview-modal");
 
 function getCardElement(data) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);

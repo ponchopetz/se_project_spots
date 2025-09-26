@@ -11,6 +11,10 @@
   padding: 0 10px;
 }
 
+.modal_type_preview {
+  padding: 0 16px;
+}
+
 .modal_opened {
   visibility: visible;
   opacity: 1;
@@ -41,6 +45,18 @@
 
 .modal__close-btn:hover {
   opacity: 1;
+  cursor: pointer;
+}
+
+.modal__close-btn_type_preview {
+  top: 0px;
+  right: -52.5px;
+  background: url(../images/x_white_icon.svg) center no-repeat;
+  opacity: 1;
+}
+
+.modal__close-btn_type_preview:hover {
+  opacity: 0.4;
   cursor: pointer;
 }
 
@@ -98,6 +114,32 @@
   cursor: pointer;
 }
 
+.modal__image-container {
+  position: relative;
+}
+
+.modal__image-preview {
+  max-width: 80vw;
+  max-height: 80vh;
+  border-radius: 8px;
+  width: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.modal__image-caption {
+  margin: 0;
+  margin-top: 8px;
+  box-sizing: border-box;
+  color: white;
+  background-color: #212121;
+  padding: 4px 8px;
+  border-radius: 8px;
+  width: fit-content;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
 @media screen and (max-width: 630px) {
   .modal__container {
     padding: 22px 12px 12px;
@@ -118,5 +160,14 @@
   .modal__submit-btn {
     max-width: none;
     width: 100%;
+  }
+
+  .modal__close-btn_type_preview {
+    top: -48px;
+    right: 0px;
+  }
+
+  .modal__image-preview {
+    max-width: unset;
   }
 }
