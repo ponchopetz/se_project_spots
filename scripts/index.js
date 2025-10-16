@@ -29,12 +29,9 @@ const editProfileBtn = document.querySelector(".profile__edit-btn");
 const editProfileModal = document.querySelector("#edit-profile-modal");
 const editProfileCloseBtn = editProfileModal.querySelector(".modal__close-btn");
 const editProfileForm = editProfileModal.querySelector(".modal__form");
-const editProfileNameInput = editProfileModal.querySelector(
-  "#profile-name-input"
-);
-const editProfileDescriptionInput = editProfileModal.querySelector(
-  "#profile-description-input"
-);
+const editProfileNameInput = editProfileModal.querySelector("#name-input");
+const editProfileDescriptionInput =
+  editProfileModal.querySelector("#description-input");
 
 const profileNameEl = document.querySelector(".profile__name");
 const profileDescriptionEl = document.querySelector(".profile__description");
@@ -43,10 +40,8 @@ const newProfileBtn = document.querySelector(".profile__new-btn");
 const newProfileModal = document.querySelector("#new-profile-modal");
 const newProfileCloseBtn = newProfileModal.querySelector(".modal__close-btn");
 const newProfileForm = newProfileModal.querySelector(".modal__form");
-const newProfileLinkInput = newProfileModal.querySelector("#post-image-url");
-const newProfileCaptionInput = newProfileModal.querySelector(
-  "#post-image-caption"
-);
+const newProfileLinkInput = newProfileModal.querySelector("#image-url");
+const newProfileCaptionInput = newProfileModal.querySelector("#image-caption");
 
 const previewModal = document.querySelector("#preview-modal");
 const previewModalImageEl = previewModal.querySelector(".modal__image-preview");
