@@ -9,6 +9,7 @@
   justify-content: center;
   align-items: center;
   padding: 0 10px;
+  cursor: pointer;
 }
 
 .modal_type_preview {
@@ -29,6 +30,7 @@
   padding: 36px 50px 32px 50px;
   border-radius: 8px;
   position: relative;
+  cursor: default;
 }
 
 .modal__close-btn {
@@ -77,15 +79,20 @@
 .modal__label {
   line-height: 110.00000000000001%;
   color: rgba(33, 33, 33, 0.7);
+  margin-bottom: 32px;
 }
 
 .modal__input {
   box-sizing: border-box;
   width: 100%;
-  margin: 8px 0 32px;
+  margin: 8px 0 0;
   border: 1px solid rgba(33, 33, 33, 0.4);
   border-radius: 8px;
   padding: 16px 12px;
+}
+
+.modal__input_type_error {
+  border: 1px solid rgba(255, 0, 0, 0.6);
 }
 
 .modal__input:hover {
@@ -96,6 +103,15 @@
   color: #2121214d;
   line-height: 1;
   font-size: 20px;
+}
+
+.modal__input-error {
+  display: block;
+  color: #ff0000b2;
+}
+
+.modal__input-error_active {
+  margin-top: 8px;
 }
 
 .modal__submit-btn {
@@ -109,9 +125,14 @@
   line-height: 1;
 }
 
-.modal__submit-btn:hover {
+.modal__submit-btn:not(:disabled):hover {
   opacity: 0.8;
   cursor: pointer;
+}
+
+.modal__submit-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 
 .modal__image-container {
@@ -140,6 +161,12 @@
   line-height: 1.2;
 }
 
+.modal__container_type_preview,
+.modal__image-preview,
+.modal__image-caption {
+  cursor: default;
+}
+
 @media screen and (max-width: 630px) {
   .modal__container {
     padding: 22px 12px 12px;
@@ -151,6 +178,10 @@
 
   .modal__title {
     font-size: 20px;
+  }
+
+  .modal__label_type_error {
+    margin-bottom: 24px;
   }
 
   .modal__input::placeholder {

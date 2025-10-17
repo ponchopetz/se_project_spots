@@ -36,6 +36,9 @@ const editProfileDescriptionInput =
 const profileNameEl = document.querySelector(".profile__name");
 const profileDescriptionEl = document.querySelector(".profile__description");
 
+editProfileNameInput.value = profileNameEl.textContent;
+editProfileDescriptionInput.value = profileDescriptionEl.textContent;
+
 const newProfileBtn = document.querySelector(".profile__new-btn");
 const newProfileModal = document.querySelector("#new-profile-modal");
 const newProfileCloseBtn = newProfileModal.querySelector(".modal__close-btn");
@@ -59,11 +62,31 @@ const cardsList = document.querySelector(".cards__list");
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  document.addEventListener("keydown", handleEscClose);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", handleEscClose);
 }
+
+function handleEscClose(evt) {
+  if (evt.key === "Escape") {
+    const openedModal = document.querySelector(".modal_opened");
+    if (openedModal) {
+      closeModal(openedModal);
+    }
+  }
+}
+
+const modals = document.querySelectorAll(".modal");
+modals.forEach((modal) => {
+  modal.addEventListener("mousedown", (evt) => {
+    if (evt.target.classList.contains("modal_opened")) {
+      closeModal(modal);
+    }
+  });
+});
 
 function getCardElement(data) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
@@ -95,8 +118,6 @@ function getCardElement(data) {
 }
 
 editProfileBtn.addEventListener("click", () => {
-  editProfileNameInput.value = profileNameEl.textContent;
-  editProfileDescriptionInput.value = profileDescriptionEl.textContent;
   openModal(editProfileModal);
 });
 editProfileCloseBtn.addEventListener("click", () => {
