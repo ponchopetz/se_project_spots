@@ -77,5 +77,17 @@ const enableValidation = (config) => {
     setEventListener(formElement, config);
   });
 };
+const resetValidation = (formElement, config) => {
+  const inputList = Array.from(
+    formElement.querySelectorAll(config.inputSelector)
+  );
+  const buttonElement = formElement.querySelector(config.submitButtonSelector);
+
+  inputList.forEach((inputElement) => {
+    hideInputError(formElement, inputElement, config);
+  });
+
+  toggleButtonState(inputList, buttonElement);
+};
 
 enableValidation(settings);
