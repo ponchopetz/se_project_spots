@@ -116,10 +116,12 @@ function getCardElement(data) {
 }
 
 editProfileBtn.addEventListener("click", () => {
+  resetValidation(editProfileForm, settings);
   openModal(editProfileModal);
 });
 
 newProfileBtn.addEventListener("click", () => {
+  resetValidation(editProfileForm, settings);
   openModal(newProfileModal);
 });
 
