@@ -77,7 +77,7 @@ You can view the live project here:
 
 -[First Video](https://drive.google.com/file/d/1zjIXls0dZSRYrKrYzsD2qijIt3KzR_XP/view?usp=sharing)
 
--[Seconds video going over JavaScript](https://drive.google.com/file/d/1IM70ksil9AWjydHQoGSymoabi0hkjUYu/view?usp=sharing)
+-[Second Video Going over JavaScript](https://drive.google.com/file/d/1IM70ksil9AWjydHQoGSymoabi0hkjUYu/view?usp=sharing)
 
 ---
 
