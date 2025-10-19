@@ -36,11 +36,6 @@ const editProfileDescriptionInput =
 const profileNameEl = document.querySelector(".profile__name");
 const profileDescriptionEl = document.querySelector(".profile__description");
 
-editProfileNameInput.value = profileNameEl.textContent;
-editProfileDescriptionInput.value = profileDescriptionEl.textContent;
-
-resetValidation(editProfileForm, settings);
-
 const newProfileBtn = document.querySelector(".profile__new-btn");
 const newProfileModal = document.querySelector("#new-profile-modal");
 const newProfileCloseBtn = newProfileModal.querySelector(".modal__close-btn");
@@ -116,12 +111,14 @@ function getCardElement(data) {
 }
 
 editProfileBtn.addEventListener("click", () => {
+  editProfileNameInput.value = profileNameEl.textContent;
+  editProfileDescriptionInput.value = profileDescriptionEl.textContent;
   resetValidation(editProfileForm, settings);
   openModal(editProfileModal);
 });
 
 newProfileBtn.addEventListener("click", () => {
-  resetValidation(editProfileForm, settings);
+  resetValidation(newProfileForm, settings);
   openModal(newProfileModal);
 });
 
