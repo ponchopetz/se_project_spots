@@ -27,7 +27,7 @@ const previewModalSelector = "#preview-modal";
 const previewModalImageEl = document.querySelector(".modal__image-preview");
 const previewModalCaptionEl = document.querySelector(".modal__image-caption");
 
-const cardsListSelector = ".cards__list"; // used by Section
+const cardsListSelector = ".cards__list";
 const cardTemplateSelector = "#card-template";
 
 const renderCard = (cardData, { position = "append" } = {}) => {
@@ -93,19 +93,15 @@ const newValidator = new FormValidator(settings, newProfileFormEl);
 newValidator.enableValidation();
 
 editProfileBtn.addEventListener("click", () => {
-  // Prefill inputs with current profile values before opening
   editProfileNameInput.value = profileNameEl.textContent;
   editProfileDescriptionInput.value = profileDescriptionEl.textContent;
 
-  // Reset validation UI so the Save button state is correct
   editValidator.resetValidation();
 
-  // Open modal using the class method
   editProfilePopup.open();
 });
 
 newProfileBtn.addEventListener("click", () => {
-  // Open modal using the class method
   newPostPopup.open();
 });
 

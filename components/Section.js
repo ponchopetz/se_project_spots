@@ -9,7 +9,6 @@ export default class Section {
   renderItems() {
     this._items.forEach((item) => {
       // renderer is responsible for creating the element and adding it
-      // We keep renderer simple: it should call section.addItem internally or return an element.
       this._renderer(item);
     });
   }
