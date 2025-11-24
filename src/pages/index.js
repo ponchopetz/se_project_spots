@@ -1,3 +1,5 @@
+import "./index.css";
+
 import { settings, initialCards } from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
