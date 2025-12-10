@@ -1,11 +1,17 @@
 import "./index.css";
 
-import { settings, initialCards } from "../utils/constants.js";
+import { settings } from "../utils/constants.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import Card from "../components/Card.js";
 import Popup from "../components/Popup.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import Api from "../utils/Api.js";
+
+const avatarEditBtn = document.querySelector(".profile__avatar-edit-btn");
+const editAvatarFormEl = document.querySelector(
+  "#edit-avatar-modal .modal__form"
+);
 
 const editProfileBtn = document.querySelector(".profile__edit-btn");
 const editProfileFormEl = document.querySelector(
@@ -22,71 +28,207 @@ const newProfileBtn = document.querySelector(".profile__new-btn");
 const newProfileFormEl = document.querySelector(
   "#new-profile-modal .modal__form"
 );
-const newProfileLinkInput = document.querySelector("#image-url");
-const newProfileCaptionInput = document.querySelector("#image-caption");
 
 const previewModalSelector = "#preview-modal";
 const previewModalImageEl = document.querySelector(".modal__image-preview");
 const previewModalCaptionEl = document.querySelector(".modal__image-caption");
 
+const deleteModalSelector = "#delete-modal";
+const confirmDeleteBtn = document.querySelector("#confirm-delete-btn");
+const cancelDeleteBtn = document.querySelector("#cancel-delete-btn");
+
 const cardsListSelector = ".cards__list";
 const cardTemplateSelector = "#card-template";
 
-const renderCard = (cardData, { position = "append" } = {}) => {
-  const card = new Card(cardData, cardTemplateSelector, {
-    handleLike: (data) => {
-      // optional: persist like, analytics, etc.
-      // console.log("liked", data);
-    },
-    handleDelete: (data) => {
-      // optional: update local state or storage
-      // console.log("deleted", data);
-    },
-    handlePreview: (data) => {
-      previewModalCaptionEl.textContent = data.name;
-      previewModalImageEl.src = data.link;
-      previewModalImageEl.alt = data.name;
-      previewPopup.open();
-    },
-  });
+let currentUserId = null;
+let selectedCard = null;
+let selectedCardId = null;
 
-  const cardElement = card.getView();
-  // add to section (append by default, or prepend for new items)
-  spotsSection.addItem(cardElement, { position });
-};
-
-const spotsSection = new Section({
-  items: initialCards,
-  renderer: (itemData) => renderCard(itemData, { position: "append" }),
-  containerSelector: cardsListSelector,
-});
+/* =========================
+   POPUPS
+========================= */
 
 const previewPopup = new Popup({ popupSelector: previewModalSelector });
 previewPopup.setEventListeners();
 
+const deletePopup = new Popup({ popupSelector: deleteModalSelector });
+deletePopup.setEventListeners();
+
+/* =========================
+   API
+========================= */
+
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1/",
+  headers: {
+    authorization: "58744bfa-b851-41cd-8747-fb7af9a88838",
+    "Content-type": "application/json",
+  },
+});
+
+/* =========================
+   CARD RENDERING
+========================= */
+
+const renderCard = (cardData, { position = "append" } = {}) => {
+  const card = new Card(
+    cardData,
+    cardTemplateSelector,
+    {
+      handleLike: (cardInstance) => {
+        api
+          .likeCard(cardInstance.id)
+          .then((updatedCard) => {
+            cardInstance.setLikeState(updatedCard.isLiked);
+          })
+          .catch((err) => console.error("Like failed:", err));
+      },
+      handleUnlike: (cardInstance) => {
+        api
+          .unlikeCard(cardInstance.id)
+          .then((updatedCard) => {
+            cardInstance.setLikeState(updatedCard.isLiked);
+          })
+          .catch((err) => console.error("Unlike failed:", err));
+      },
+      handleDelete: (cardInstance) => {
+        selectedCard = cardInstance;
+        selectedCardId = cardInstance.id;
+        deletePopup.open();
+      },
+      handlePreview: (data) => {
+        previewModalCaptionEl.textContent = data.name;
+        previewModalImageEl.src = data.link;
+        previewModalImageEl.alt = data.name;
+        previewPopup.open();
+      },
+    },
+    currentUserId
+  );
+
+  const cardElement = card.getView();
+  spotsSection.addItem(cardElement, { position });
+};
+
+const spotsSection = new Section({
+  items: [],
+  renderer: (itemData) => renderCard(itemData, { position: "append" }),
+  containerSelector: cardsListSelector,
+});
+
+/* =========================
+   DELETE CONFIRMATION LOGIC
+========================= */
+
+confirmDeleteBtn.addEventListener("click", () => {
+  if (!selectedCardId) return;
+
+  confirmDeleteBtn.textContent = "Deleting...";
+
+  api
+    .deleteCard(selectedCardId)
+    .then(() => {
+      selectedCard.deleteCard();
+      deletePopup.close();
+
+      selectedCard = null;
+      selectedCardId = null;
+    })
+    .catch((err) => console.error("Delete failed:", err))
+    .finally(() => {
+      confirmDeleteBtn.textContent = "Delete";
+    });
+});
+
+cancelDeleteBtn.addEventListener("click", () => {
+  deletePopup.close();
+});
+
+/* =========================
+   POPUP WITH FORM: AVATAR
+========================= */
+
+const editAvatarPopup = new PopupWithForm({
+  popupSelector: "#edit-avatar-modal",
+  handleFormSubmit: (formValues) => {
+    editAvatarPopup.setLoading(true);
+    api
+      .updateAvatar({
+        avatar: formValues.avatar,
+      })
+      .then((updatedUser) => {
+        document.querySelector(".profile__avatar").src = updatedUser.avatar;
+        editAvatarPopup.close();
+      })
+      .catch((err) => {
+        console.error("Failed to update avatar:", err);
+      })
+      .finally(() => {
+        editAvatarPopup.setLoading(false);
+      });
+  },
+});
+editAvatarPopup.setEventListeners();
+
+/* =========================
+   POPUP WITH FORM: PROFILE
+========================= */
+
 const editProfilePopup = new PopupWithForm({
   popupSelector: "#edit-profile-modal",
   handleFormSubmit: (formValues) => {
-    profileNameEl.textContent = formValues.profileName;
-    profileDescriptionEl.textContent = formValues.profileDescription;
-    editProfilePopup.close();
+    editProfilePopup.setLoading(true);
+    api
+      .updateUserInfo({
+        name: formValues.profileName,
+        about: formValues.profileDescription,
+      })
+      .then((updatedUser) => {
+        profileNameEl.textContent = updatedUser.name;
+        profileDescriptionEl.textContent = updatedUser.about;
+        editProfilePopup.close();
+      })
+      .catch((err) => {
+        console.error("Failed to update profile:", err);
+      })
+      .finally(() => {
+        editProfilePopup.setLoading(false);
+      });
   },
 });
 editProfilePopup.setEventListeners();
 
+/* =========================
+   POPUP WITH FORM: NEW POST
+========================= */
+
 const newPostPopup = new PopupWithForm({
   popupSelector: "#new-profile-modal",
   handleFormSubmit: (formValues) => {
-    const newCardData = {
-      name: formValues.imageCaption,
-      link: formValues.imageLink,
-    };
-    renderCard(newCardData, { position: "prepend" });
-    newPostPopup.close();
-    newValidator.resetForm();
+    newPostPopup.setLoading(true);
+    api
+      .addCard({
+        name: formValues.imageCaption,
+        link: formValues.imageLink,
+      })
+      .then((createdCard) => {
+        renderCard(createdCard, { position: "prepend" });
+        newPostPopup.close();
+        newValidator.resetForm();
+      })
+      .catch((err) => {
+        console.error("Failed to add card:", err);
+      })
+      .finally(() => {
+        newPostPopup.setLoading(false);
+      });
   },
 });
 newPostPopup.setEventListeners();
+
+/* =========================
+   VALIDATION ENABLERS
+========================= */
 
 const editValidator = new FormValidator(settings, editProfileFormEl);
 editValidator.enableValidation();
@@ -94,17 +236,45 @@ editValidator.enableValidation();
 const newValidator = new FormValidator(settings, newProfileFormEl);
 newValidator.enableValidation();
 
+const avatarValidator = new FormValidator(settings, editAvatarFormEl);
+avatarValidator.enableValidation();
+
+/* =========================
+   EVENT LISTENERS
+========================= */
+
 editProfileBtn.addEventListener("click", () => {
   editProfileNameInput.value = profileNameEl.textContent;
   editProfileDescriptionInput.value = profileDescriptionEl.textContent;
 
   editValidator.resetValidation();
-
   editProfilePopup.open();
 });
 
 newProfileBtn.addEventListener("click", () => {
+  newValidator.resetValidation();
   newPostPopup.open();
 });
 
-spotsSection.renderItems();
+avatarEditBtn.addEventListener("click", () => {
+  avatarValidator.resetValidation();
+  editAvatarPopup.open();
+});
+
+/* =========================
+   INITIAL DATA LOAD
+========================= */
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    currentUserId = userData._id;
+    profileNameEl.textContent = userData.name;
+    profileDescriptionEl.textContent = userData.about;
+    document.querySelector(".profile__avatar").src = userData.avatar;
+
+    spotsSection.setItems(cards);
+    spotsSection.renderItems();
+  })
+  .catch((err) => {
+    console.error("Error loading initial data:", err);
+  });

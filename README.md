@@ -1,37 +1,100 @@
-# Spots — Card Gallery Project
+# Spots — Full-Stack Card Gallery Application
+
+## 🚀 Deployment
+
+Live Deployment:  
+👉 **[GitHub Pages](https://ponchopetz.github.io/se_project_spots/)**
 
 ## 📖 Description
 
-**Spots** is a responsive web application that allows users to view, add, and manage image cards in a clean, gallery-style interface.  
-Built using semantic HTML, modular CSS, and vanilla JavaScript, the project demonstrates core front-end development principles such as DOM manipulation, event handling, and responsive design — with smooth user interactions and reusable UI components.
+**Spots** is a fully interactive, responsive web application that allows users to view, add, like, and delete image cards, as well as edit their profile information and avatar — all powered by a live REST API.
+
+The project is built using **Object-Oriented JavaScript**, **Webpack**, and a modular architecture to demonstrate real-world front-end engineering practices such as asynchronous data handling, component-based UI design, and clean separation of concerns.
 
 ---
 
 ## ✨ Features & Functionality
 
-### 🖼️ Card Gallery
+### 🖼️ Card Gallery (API-Driven)
 
-- Displays an initial set of cards dynamically from a JavaScript array.
-- Users can add new image cards with a caption via a form modal.
-- Cards include interactive **like** and **delete** buttons.
-- Clicking an image opens a **preview modal** with a larger view.
+- Dynamically loads cards from a remote server using a REST API.
+- Users can:
+  - Add new image cards.
+  - Like & unlike cards.
+  - Delete their own cards (with confirmation).
+- Image preview modal opens on image click.
 
-### 🧭 Modals & User Interactions
+---
 
-- Smooth open and close transitions using CSS animations.
-- Modals can be closed by:
-  - Clicking the close (`X`) button.
-  - Clicking outside the modal (on the overlay).
-  - Pressing the **Escape** key.
-- The background overlay subtly signals interactivity with a pointer cursor.
+### 👤 User Profile Management
 
-### 🧩 Form Validation
+- Loads user profile data from the server:
+  - Name
+  - Bio
+  - Avatar
+- Users can:
+  - Edit their profile information.
+  - Update their avatar via a dedicated modal.
+- All changes persist to the backend.
 
-- Real-time input validation with descriptive error messages.
-- Submit button dynamically enables/disables based on form validity.
-- Validation automatically resets when reopening modals.
-- Prevents empty or invalid submissions and disables the button on load.
-- BEM-based error styling for consistency and clarity.
+---
+
+### 🗑️ Delete Confirmation Modal
+
+- Users must confirm before deleting a card.
+- Prevents accidental data loss.
+- Displays a loading state ("Deleting…") during server communication.
+
+---
+
+### ⏳ Loading States & UX Feedback
+
+- Submit buttons dynamically change to:
+  - **"Saving…"**
+  - **"Deleting…"**
+- Prevents duplicate submissions.
+- Improves perceived performance and user feedback.
+
+---
+
+### ✅ Form Validation
+
+- Real-time form validation using a reusable `FormValidator` class.
+- Dynamic error messages for invalid inputs.
+- Submit buttons enable/disable automatically based on validity.
+- Validation resets automatically when modals reopen.
+- All forms validated:
+  - Edit profile
+  - New post
+  - Edit avatar
+
+---
+
+### 🧭 Modals & Accessibility
+
+- All modals support:
+  - Close via **overlay click**
+  - Close via **Escape key**
+  - Close via **X button**
+- Smooth CSS transitions for open/close animations.
+- Mobile-friendly modal layouts.
+
+---
+
+## 🧠 Architecture & Engineering Highlights
+
+- **Object-Oriented Programming (OOP)**
+  - `Card`
+  - `Section`
+  - `Popup`
+  - `PopupWithForm`
+  - `FormValidator`
+  - `Api`
+- **Separation of concerns** between UI logic, API logic, and state.
+- Fully asynchronous data flow using:
+  - `fetch`
+  - `Promise.all()`
+  - `.then() / .catch() / .finally()`
 
 ---
 
@@ -39,60 +102,61 @@ Built using semantic HTML, modular CSS, and vanilla JavaScript, the project demo
 
 - **HTML5** — Semantic and accessible structure
 - **CSS3** — Responsive layout using Grid and Flexbox
-- **BEM methodology** — Consistent and maintainable CSS naming
-- **JavaScript (ES6)** — DOM manipulation, modular logic, and event listeners
-- **Responsive design** — Optimized for both desktop and mobile viewports
+- **BEM Methodology** — Scalable and maintainable CSS architecture
+- **JavaScript (ES6+)** — Classes, modules, async logic
+- **Webpack** — Bundling, modular imports, production builds
+- **REST API** — Full CRUD operations
+- **Git & GitHub** — Feature branching and pull request workflow
+- **Responsive Design** — Optimized for desktop & mobile
+- **Asynchronous UI State Handling** — Loading states, error handling
 
 ---
 
 ## 🎨 UX Design Highlights
 
-- Smooth modal transitions for a polished user experience.
-- Intuitive overlay closing behavior to improve accessibility.
-- Validation-driven user feedback to prevent form errors.
-- Modern typography, spacing, and color contrast for readability.
-
----
-
-## 🚀 Deployment
-
-You can view the live project here:  
-👉 [**GitHub Pages Deployment Link**](https://ponchopetz.github.io/se_project_spots/)
+- Hover-based avatar editing on desktop.
+- Always-visible avatar edit button on mobile.
+- Confirmation modals for destructive actions.
+- Smooth, intuitive modal transitions.
+- Clear visual feedback during all async actions.
 
 ---
 
 ## 📸 Screenshots
 
 **Desktop View:**  
-![Desktop View](../assets/desktop_view.png)  
 <img width="1547" height="872" alt="desktop_view" src="https://github.com/user-attachments/assets/ea98514e-1304-452f-b1e0-d3c9ce7924ba" />
 
 **Mobile View:**  
-![Mobile View](../assets/mobile_view.png)  
 <img width="591" height="872" alt="mobile_view" src="https://github.com/user-attachments/assets/19955e9c-c7fb-4111-9b3d-01a6df08e7a5" />
 
 ---
 
-## 🎥 Video Demonstration
+## 🎥 Video Demonstrations
 
--[First Video](https://drive.google.com/file/d/1zjIXls0dZSRYrKrYzsD2qijIt3KzR_XP/view?usp=sharing)
-
--[Second Video Going over JavaScript](https://drive.google.com/file/d/1IM70ksil9AWjydHQoGSymoabi0hkjUYu/view?usp=sharing)
+- [PROJECT PITCH](https://www.loom.com/share/ad1a94193745436992fde2f6028908a2)
 
 ---
 
 ## 💡 Lessons Learned
 
-- Improved understanding of **function parameter flow** and modular JavaScript architecture.
-- Learned to properly structure **validation logic** using configuration objects and helper functions.
-- Discovered best practices for **where to place event listeners** (inside vs. outside modal functions).
-- Gained hands-on experience debugging UI behavior, CSS transitions, and event propagation.
+- Designing **true OOP front-end architectures**.
+- Managing **shared state across components**.
+- Implementing **safe async UX patterns** with loading states.
+- Structuring **reusable form validation logic**.
+- Coordinating **multiple asynchronous API calls with `Promise.all()`**.
+- Debugging event propagation, modal lifecycles, and async race conditions.
+- Implementing **production-grade delete confirmation workflows**.
 
 ---
 
 ## 🔮 Future Improvements
 
-- Add local storage to persist added cards.
-- Implement drag-and-drop card reordering.
-- Add form accessibility features (focus trapping, ARIA roles).
-- Convert repetitive JS to reusable modules for scalability.
+- User authentication and multi-user support.
+- Persistent user sessions.
+- Drag-and-drop card reordering.
+- Accessibility upgrades (ARIA roles & focus trapping).
+- Infinite scrolling for large card sets.
+- Server-side image optimization.
+
+---
