@@ -159,6 +159,7 @@ const editAvatarPopup = new PopupWithForm({
       .then((updatedUser) => {
         document.querySelector(".profile__avatar").src = updatedUser.avatar;
         editAvatarPopup.close();
+        editAvatarPopup.resetForm();
       })
       .catch((err) => {
         console.error("Failed to update avatar:", err);
@@ -187,6 +188,7 @@ const editProfilePopup = new PopupWithForm({
         profileNameEl.textContent = updatedUser.name;
         profileDescriptionEl.textContent = updatedUser.about;
         editProfilePopup.close();
+        editValidator.resetForm();
       })
       .catch((err) => {
         console.error("Failed to update profile:", err);
@@ -252,12 +254,11 @@ editProfileBtn.addEventListener("click", () => {
 });
 
 newProfileBtn.addEventListener("click", () => {
-  newValidator.resetValidation();
   newPostPopup.open();
 });
 
 avatarEditBtn.addEventListener("click", () => {
-  avatarValidator.resetValidation();
+  avatarValidator.resetForm();
   editAvatarPopup.open();
 });
 
