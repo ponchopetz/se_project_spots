@@ -225,6 +225,7 @@ const newPostPopup = new PopupWithForm({
         newPostPopup.setLoading(false);
       });
   },
+  disableButtonOnOpen: true,
 });
 newPostPopup.setEventListeners();
 

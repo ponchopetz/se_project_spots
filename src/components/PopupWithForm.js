@@ -1,22 +1,27 @@
 import Popup from "./Popup.js";
 
 class PopupWithForm extends Popup {
-  constructor({ popupSelector, handleFormSubmit }) {
+  constructor({
+    popupSelector,
+    handleFormSubmit,
+    disableButtonOnOpen = false,
+  }) {
     super({ popupSelector });
     this._handleFormSubmit = handleFormSubmit;
+    this._disableButtonOnOpen = disableButtonOnOpen;
     this._form = this._popupElement.querySelector(".modal__form");
     this._inputList = Array.from(this._form.querySelectorAll(".modal__input"));
+    this._submitBtn = this._popupElement.querySelector(".modal__submit-btn");
+    this._defaultSubmitText = this._submitBtn.textContent;
   }
 
   open() {
     super.open();
 
-    // Always re-cache button when popup opens
-    this._submitBtn = this._popupElement.querySelector(".modal__submit-btn");
-    this._defaultSubmitText = this._submitBtn.textContent;
-
-    // Disable on open to avoid re-enabled empty form
-    this._submitBtn.disabled = true;
+    if (this._disableButtonOnOpen) {
+      this._submitBtn.disabled = true;
+      this._submitBtn.classList.add("modal__submit-btn_disabled");
+    }
   }
 
   setLoading(isLoading, loadingText = "Saving...") {
