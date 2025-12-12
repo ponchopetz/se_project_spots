@@ -159,7 +159,7 @@ const editAvatarPopup = new PopupWithForm({
       .then((updatedUser) => {
         document.querySelector(".profile__avatar").src = updatedUser.avatar;
         editAvatarPopup.close();
-        editAvatarPopup.resetForm();
+        avatarValidator.resetForm();
       })
       .catch((err) => {
         console.error("Failed to update avatar:", err);
