@@ -1,4 +1,4 @@
-export default class Section {
+class Section {
   constructor({ items = [], renderer, containerSelector }) {
     this._items = items;
     this._renderer = renderer; // function that knows how to create & add a single item
@@ -21,4 +21,10 @@ export default class Section {
       this._container.append(element);
     }
   }
+
+  setItems(items) {
+    this._items = items;
+  }
 }
+
+export default Section;
